@@ -1,0 +1,183 @@
+<?xml version="1.0" ?>
+<sdf version="1.9">
+  <world name="slam_world">
+    <physics name="1ms" type="ignore">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+
+    <plugin filename="gz-sim-physics-system"
+      name="gz::sim::systems::Physics">
+    </plugin>
+    <plugin
+      filename="gz-sim-sensors-system"
+      name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+    <plugin filename="gz-sim-user-commands-system"
+      name="gz::sim::systems::UserCommands">
+    </plugin>
+    <plugin filename="gz-sim-scene-broadcaster-system"
+      name="gz::sim::systems::SceneBroadcaster">
+    </plugin>
+    <plugin filename="gz-sim-imu-system"
+      name="gz::sim::systems::Imu">
+    </plugin>
+    <plugin filename="gz-sim-navsat-system"
+      name="gz::sim::systems::NavSat">
+    </plugin>
+
+    <scene>
+      <ambient>1.0 1.0 1.0</ambient>
+      <background>0.8 0.8 0.8</background>
+      <sky></sky>
+    </scene>
+
+    <spherical_coordinates>
+      <latitude_deg>-35.363262</latitude_deg>
+      <longitude_deg>149.165237</longitude_deg>
+      <elevation>584</elevation>
+      <heading_deg>0</heading_deg>
+      <surface_model>EARTH_WGS84</surface_model>
+    </spherical_coordinates>
+
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.8 0.8 0.8 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+    <model name="axes">
+      <static>1</static>
+      <link name="link">
+        <visual name="r">
+          <cast_shadows>0</cast_shadows>
+          <pose>5 0 0.1 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>10 0.01 0.01</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>1 0 0 0.8</ambient>
+            <diffuse>1 0 0 0.8</diffuse>
+            <emissive>1 0 0 0.8</emissive>
+            <specular>0.5 0.5 0.5 0.8</specular>
+          </material>
+        </visual>
+        <visual name="g">
+          <cast_shadows>0</cast_shadows>
+          <pose>0 5 0.1 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.01 10 0.01</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0 1 0 0.8</ambient>
+            <diffuse>0 1 0 0.8</diffuse>
+            <emissive>0 1 0 0.8</emissive>
+            <specular>0.5 0.5 0.5 0.8</specular>
+          </material>
+        </visual>
+        <visual name="b">
+          <cast_shadows>0</cast_shadows>
+          <pose>0 0 5.1 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.01 0.01 10</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0 0 1 0.8</ambient>
+            <diffuse>0 0 1 0.8</diffuse>
+            <emissive>0 0 1 0.8</emissive>
+            <specular>0.5 0.5 0.5 0.8</specular>
+          </material>
+        </visual>
+        <sensor name="navsat_sensor" type="navsat">
+          <always_on>1</always_on>
+          <update_rate>1</update_rate>
+        </sensor>
+      </link>
+    </model>
+    
+    <model name="white_ground_plane">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="apartment_3bhk">
+      <static>true</static>
+      
+      <!-- Outer Perimeter Walls (Soft Light Grey) -->
+      <link name="wall_north"><pose>0 6 1.25 0 0 0</pose><collision name="c"><geometry><box><size>16 0.2 2.5</size></box></geometry></collision><visual name="v"><geometry><box><size>16 0.2 2.5</size></box></geometry><material><ambient>0.7 0.7 0.7 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link>
+      <link name="wall_south"><pose>0 -6 1.25 0 0 0</pose><collision name="c"><geometry><box><size>16 0.2 2.5</size></box></geometry></collision><visual name="v"><geometry><box><size>16 0.2 2.5</size></box></geometry><material><ambient>0.7 0.7 0.7 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link>
+      <link name="wall_east"><pose>8 0 1.25 0 0 0</pose><collision name="c"><geometry><box><size>0.2 12 2.5</size></box></geometry></collision><visual name="v"><geometry><box><size>0.2 12 2.5</size></box></geometry><material><ambient>0.7 0.7 0.7 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link>
+      <link name="wall_west"><pose>-8 0 1.25 0 0 0</pose><collision name="c"><geometry><box><size>0.2 12 2.5</size></box></geometry></collision><visual name="v"><geometry><box><size>0.2 12 2.5</size></box></geometry><material><ambient>0.7 0.7 0.7 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material></visual></link>
+
+      <!-- Central Hallway Corridors (Bright Off-White/Beige) -->
+      <link name="hall_n_1"><pose>-6 1 1.25 0 0 0</pose><collision name="c"><geometry><box><size>4 0.2 2.5</size></box></geometry></collision><visual name="v"><geometry><box><size>4 0.2 2.5</size></box></geometry><material><ambient>0.9 0.9 0.85 1</ambient><diffuse>0.9 0.9 0.85 1</diffuse></material></visual></link>
+      <link name="hall_n_2"><pose>-1 1 1.25 0 0 0</pose><collision name="c"><geometry><box><size>4 0.2 2.5</size></box></geometry></collision><visual name="v"><geometry><box><size>4 0.2 2.5</size></box></geometry><material><ambient>0.9 0.9 0.85 1</ambient><diffuse>0.9 0.9 0.85 1</diffuse></material></visual></link>
+      <link name="hall_s_1"><pose>-6 -1 1.25 0 0 0</pose><collision name="c"><geometry><box><size>4 0.2 2.5</size></box></geometry></collision><visual name="v"><geometry><box><size>4 0.2 2.5</size></box></geometry><material><ambient>0.9 0.9 0.85 1</ambient><diffuse>0.9 0.9 0.85 1</diffuse></material></visual></link>
+      <link name="hall_s_2"><pose>-1 -1 1.25 0 0 0</pose><collision name="c"><geometry><box><size>4 0.2 2.5</size></box></geometry></collision><visual name="v"><geometry><box><size>4 0.2 2.5</size></box></geometry><material><ambient>0.9 0.9 0.85 1</ambient><diffuse>0.9 0.9 0.85 1</diffuse></material></visual></link>
+
+      <!-- Vertical Room Dividers -->
+      <link name="div_bed1_2"><pose>-3 3.5 1.25 0 0 0</pose><collision name="c"><geometry><box><size>0.2 5 2.5</size></box></geometry></collision><visual name="v"><geometry><box><size>0.2 5 2.5</size></box></geometry><material><ambient>0.9 0.9 0.85 1</ambient><diffuse>0.9 0.9 0.85 1</diffuse></material></visual></link>
+      <link name="div_bed2_kit"><pose>2 3.5 1.25 0 0 0</pose><collision name="c"><geometry><box><size>0.2 5 2.5</size></box></geometry></collision><visual name="v"><geometry><box><size>0.2 5 2.5</size></box></geometry><material><ambient>0.9 0.9 0.85 1</ambient><diffuse>0.9 0.9 0.85 1</diffuse></material></visual></link>
+      <link name="kit_south"><pose>6 2 1.25 0 0 0</pose><collision name="c"><geometry><box><size>4 0.2 2.5</size></box></geometry></collision><visual name="v"><geometry><box><size>4 0.2 2.5</size></box></geometry><material><ambient>0.9 0.9 0.85 1</ambient><diffuse>0.9 0.9 0.85 1</diffuse></material></visual></link>
+
+      <!-- Master Bed & Bathrooms Dividers -->
+      <link name="master_e_1"><pose>-3 -1.5 1.25 0 0 0</pose><collision name="c"><geometry><box><size>0.2 1 2.5</size></box></geometry></collision><visual name="v"><geometry><box><size>0.2 1 2.5</size></box></geometry><material><ambient>0.9 0.9 0.85 1</ambient><diffuse>0.9 0.9 0.85 1</diffuse></material></visual></link>
+      <link name="master_e_2"><pose>-3 -4.5 1.25 0 0 0</pose><collision name="c"><geometry><box><size>0.2 3 2.5</size></box></geometry></collision><visual name="v"><geometry><box><size>0.2 3 2.5</size></box></geometry><material><ambient>0.9 0.9 0.85 1</ambient><diffuse>0.9 0.9 0.85 1</diffuse></material></visual></link>
+      <link name="div_bath_liv"><pose>2 -3.5 1.25 0 0 0</pose><collision name="c"><geometry><box><size>0.2 5 2.5</size></box></geometry></collision><visual name="v"><geometry><box><size>0.2 5 2.5</size></box></geometry><material><ambient>0.9 0.9 0.85 1</ambient><diffuse>0.9 0.9 0.85 1</diffuse></material></visual></link>
+      <link name="div_ensuite_com"><pose>-0.5 -3.5 1.25 0 0 0</pose><collision name="c"><geometry><box><size>0.2 5 2.5</size></box></geometry></collision><visual name="v"><geometry><box><size>0.2 5 2.5</size></box></geometry><material><ambient>0.9 0.9 0.85 1</ambient><diffuse>0.9 0.9 0.85 1</diffuse></material></visual></link>
+
+      <!-- FURNITURE / OBSTACLES -->
+      <!-- Kitchen Island (Lighter Wood) -->
+      <link name="kitchen_island"><pose>5 4 0.5 0 0 0</pose><collision name="c"><geometry><box><size>2 1 1</size></box></geometry></collision><visual name="v"><geometry><box><size>2 1 1</size></box></geometry><material><ambient>0.8 0.6 0.4 1</ambient><diffuse>0.8 0.6 0.4 1</diffuse></material></visual></link>
+      
+      <!-- Living Room Sofa Block (Light Blue) -->
+      <link name="sofa"><pose>5 -4 0.4 0 0 0</pose><collision name="c"><geometry><box><size>2 1 0.8</size></box></geometry></collision><visual name="v"><geometry><box><size>2 1 0.8</size></box></geometry><material><ambient>0.4 0.6 0.8 1</ambient><diffuse>0.4 0.6 0.8 1</diffuse></material></visual></link>
+      
+      <!-- Living Room TV Console (Grey) -->
+      <link name="tv_console"><pose>7.8 -4 0.5 0 0 0</pose><collision name="c"><geometry><box><size>0.4 3 1</size></box></geometry></collision><visual name="v"><geometry><box><size>0.4 3 1</size></box></geometry><material><ambient>0.4 0.4 0.4 1</ambient><diffuse>0.4 0.4 0.4 1</diffuse></material></visual></link>
+    </model>
+
+    <include>
+      <uri>drone.sdf</uri>
+      <pose degrees="true">4 -2 0.195 0 0 90</pose>
+    </include>
+
+  </world>
+</sdf>
