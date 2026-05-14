@@ -110,7 +110,7 @@ Tools/environment_install/install-prereqs-ubuntu.sh -y
 
 ## Ardupilot Gazebo Plugin
 Run in the linux terminal
-```
+```bash
 sudo apt update
 sudo apt install libgz-sim8-dev rapidjson-dev -y
 sudo apt install libopencv-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev gstreamer1.0-plugins-bad gstreamer1.0-libav gstreamer1.0-gl -y
@@ -164,6 +164,9 @@ Install QGroundControl on your machine [https://qgroundcontrol.com/](https://qgr
 
 WSL/Linux run the following in a terminal.
 ```bash
+cd ~
+git clone https://github.com/abhishekjain1612006/AeroClub-SLAM.git
+cd AeroClub-SLAM
 gz sim -r -v4 world.sdf
 ```
 and open another linux terminal and run
@@ -174,6 +177,9 @@ sim_vehicle.py -v ArduCopter -f gazebo-iris --frame JSON # This command will com
 
 Mac people must open a linux terminal and run
 ```bash
+cd ~
+git clone https://github.com/abhishekjain1612006/AeroClub-SLAM.git
+cd AeroClub-SLAM
 gz sim -s -r -v4 world.sdf
 ```
 In another linux terminal run
@@ -181,7 +187,7 @@ In another linux terminal run
 sim_vehicle.py -v ArduCopter -f gazebo-iris --frame JSON --out=udp:192.168.64.1:14550
 ```
 and in the MAC terminal run
-```
+```bash
 gz sim -v4 -g
 ```
 
